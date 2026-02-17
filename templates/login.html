@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}دخول المعلمين{% endblock %}
+
+{% block content %}
+<div class="login-page container">
+
+    <div class="login-card">
+        <h2 class="login-title">تسجيل دخول المعلمين</h2>
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">اسم المستخدم:</label>
+            <input type="text" name="username" id="username" placeholder="ادخل اسم المستخدم" required>
+
+            <label for="password">كلمة المرور:</label>
+            <input type="password" name="password" id="password" placeholder="ادخل كلمة المرور" required>
+
+            <button type="submit" class="btn">دخول</button>
+        </form>
+
+        {% if error %}
+            <p class="error-msg">{{ error }}</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

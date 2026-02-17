@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}الرئيسية - مدرسة الشهيد حجازي نور الدين{% endblock %}
+
+{% block content %}
+<div class="home">
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>مرحبًا بكم في مدرسة الشهيد حجازي نور الدين الثانوية</h1>
+        <p>الموقع الرسمي للمدرسة، تابع آخر الأخبار، النتائج، والأنشطة المدرسية.</p>
+        <a class="btn" href="{{ url_for('about') }}">عن المدرسة</a>
+        <img src="{{ url_for('static', filename='images/school_building.jpg') }}" alt="مبنى المدرسة" class="hero-img">
+    </section>
+
+    <!-- آخر الأخبار -->
+    <section class="latest-news">
+        <h2>آخر الأخبار</h2>
+        {% if news_list %}
+        <div class="news-cards">
+            {% for news in news_list[:5] %}
+            <div class="card">
+                <h3>{{ news.title }}</h3>
+                <a href="{{ url_for('news_detail', news_id=news.id) }}" class="btn-small">اقرأ المزيد</a>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="btn" href="{{ url_for('news') }}">المزيد من الأخبار</a>
+        {% else %}
+        <p>لا توجد أخبار حالياً.</p>
+        {% endif %}
+    </section>
+
+    <!-- الوصول السريع للصفحات المهمة -->
+    <section class="quick-links">
+        <h2>الوصول السريع</h2>
+        <div class="links-grid">
+            <a class="card-link" href="{{ url_for('results') }}">النتائج</a>
+            <a class="card-link" href="{{ url_for('resources') }}">الموارد التعليمية</a>
+            <a class="card-link" href="{{ url_for('teachers') }}">المعلمين</a>
+            <a class="card-link" href="{{ url_for('top_students') }}">الأوائل</a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
