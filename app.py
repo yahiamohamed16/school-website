@@ -4,7 +4,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "secret_key_very_secure"
-DATABASE = 'database.db'
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, 'database.db')
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
@@ -81,11 +84,11 @@ def news_detail(news_id):
     )
 
 def save_news_to_db(title, content):
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
-    c.execute("INSERT INTO news (title, content) VALUES (?, ?)", (title, content))
+    conn = get_db_connection()  # ← استخدام الدالة اللي بتحل مشكلة المسار
+    conn.execute("INSERT INTO news (title, content) VALUES (?, ?)", (title, content))
     conn.commit()
     conn.close()
+
 @app.route("/delete_news/<int:news_id>", methods=["POST"])
 def delete_news(news_id):
     if 'teacher' not in session:
@@ -135,23 +138,6 @@ def about():
 def news():
     news_list = get_all_news_from_db()
     return render_template('news.html', news_list=news_list)
-
-
-# ===== صفحة النتائج =====
-@app.route('/results')
-def results():
-    results_groups = [
-        {
-            "title": "الصف الأول الثانوي - انتظام",
-            "images": [url_for('static', filename=f'images/first_regular{i}.jpg') for i in range(2, 35)]
-        },
-        {
-            "title": "الصف الثاني الثانوي - انتظام",
-            "images": [url_for('static', filename=f'images/second_regular{i}.jpg') for i in range(1, 35)]
-        }
-    ]
-
-    return render_template('results.html', results_groups=results_groups)
 
 @app.route('/top_students')
 def top_students():
