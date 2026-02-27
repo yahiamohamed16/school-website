@@ -1,65 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}مدرسة الشهيد حجازي نور الدين الثانوية{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="الموقع الرسمي لمدرسة الشهيد حجازي نور الدين الثانوية">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}مدرسة الشهيد حجازي نور الدين الثانوية{% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="الموقع الرسمي لمدرسة الشهيد حجازي نور الدين الثانوية"
+    />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-</head>
-<body>
-   <div class="top-bar">
-        <div class="scroll-wrapper">
-            <span class="scroll-text">
-                 مرحبًا بكم في موقع مدرسة الشهيد حجازي نور الدين الثانوية — تابع آخر الأخبار والفعاليات! &nbsp; • &nbsp;
-            </span>
-            <span class="scroll-text">
-                 مرحبًا بكم في موقع مدرسة الشهيد حجازي نور الدين الثانوية — تابع آخر الأخبار والفعاليات! &nbsp; • &nbsp;
-            </span>
-        </div>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="scroll-wrapper">
+        <span class="scroll-text">
+          مرحبًا بكم في موقع مدرسة الشهيد حجازي نور الدين الثانوية — تابع آخر
+          الأخبار والفعاليات! &nbsp; • &nbsp;
+        </span>
+        <span class="scroll-text">
+          مرحبًا بكم في موقع مدرسة الشهيد حجازي نور الدين الثانوية — تابع آخر
+          الأخبار والفعاليات! &nbsp; • &nbsp;
+        </span>
+      </div>
     </div>
-
-
 
     <!-- ===== Header ===== -->
     <header class="header">
-        <div class="container">
-            <div class="logo-placeholder">
-                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="شعار المدرسة" class="school-logo">
-            </div>
-            <h1>مدرسة الشهيد حجازي نور الدين الثانوية</h1>
+      <div class="container">
+        <div class="logo-placeholder">
+          <img
+            src="{{ url_for('static', filename='images/logo.jpg') }}"
+            alt="شعار المدرسة"
+            class="school-logo"
+          />
         </div>
+        <h1>مدرسة الشهيد حجازي نور الدين الثانوية</h1>
+      </div>
     </header>
-
 
     <!-- ===== Navbar ===== -->
     <nav class="navbar">
-        <ul>
-            <li><a href="{{ url_for('home') }}">الرئيسية</a></li>
-            <li><a href="{{ url_for('about') }}">عن المدرسة</a></li>
-            <li><a href="{{ url_for('news') }}">الأخبار</a></li>
-            <li><a href="{{ url_for('contact') }}">تواصل و الدعم الفني </a></li>
-            <li><a href="{{ url_for('resources') }}">الموارد التعليمية</a></i>
-            <li><a href="{{ url_for('teachers') }}">المعلمين</a></li>
-            <li><a href="{{ url_for('top_students') }}">الأوائل</a></i>
-
-        </ul>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+        aria-label="فتح القائمة"
+      >
+        ☰
+      </button>
+      <ul id="primary-nav">
+        <li><a href="{{ url_for('home') }}">الرئيسية</a></li>
+        <li><a href="{{ url_for('about') }}">عن المدرسة</a></li>
+        <li><a href="{{ url_for('news') }}">الأخبار</a></li>
+        <li><a href="{{ url_for('contact') }}">تواصل و الدعم الفني </a></li>
+        <li><a href="{{ url_for('resources') }}">الموارد التعليمية</a></li>
+        <li><a href="{{ url_for('teachers') }}">المعلمين</a></li>
+        <li><a href="{{ url_for('top_students') }}">الأوائل</a></li>
+      </ul>
     </nav>
 
     <!-- ===== Main Content ===== -->
-    <main class="content container">
-        {% block content %}
-        {% endblock %}
-    </main>
+    <main class="content container">{% block content %} {% endblock %}</main>
 
     <!-- ===== Footer ===== -->
     <footer class="footer">
-        <p>© {{ year }} مدرسة الشهيد حجازي نور الدين الثانوية— جميع الحقوق محفوظة</p>
+      <p>
+        © {{ year }} مدرسة الشهيد حجازي نور الدين الثانوية— جميع الحقوق محفوظة
+      </p>
     </footer>
 
-</body>
+    <script>
+      const navToggle = document.querySelector(".nav-toggle");
+      const primaryNav = document.getElementById("primary-nav");
+
+      if (navToggle && primaryNav) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = primaryNav.classList.toggle("is-open");
+          navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      }
+    </script>
+  </body>
 </html>

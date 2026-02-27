@@ -90,6 +90,16 @@ header.header {
   color: white;
 }
 
+.nav-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  color: #801500;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 10px 16px;
+}
+
 /* ===== Main Content ===== */
 main.content {
   padding: 60px 0;
@@ -893,12 +903,25 @@ footer.footer {
     text-align: center;
   }
 
+  .nav-toggle {
+    display: block;
+    width: 100%;
+    text-align: right;
+  }
+
   .navbar ul {
+    display: none;
     flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar ul.is-open {
+    display: flex;
   }
 
   .navbar ul li {
     margin: 5px 0;
+    text-align: center;
   }
 
   .hero-img {
