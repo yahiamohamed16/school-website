@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS news (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
+    image_path TEXT,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 )
 ''')

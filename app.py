@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+from uuid import uuid4
 
 app = Flask(__name__)
 app.secret_key = "secret_key_very_secure"
@@ -8,11 +10,45 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, 'database.db')
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads', 'news')
+ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
+
+def ensure_news_image_column():
+    conn = get_db_connection()
+    columns = conn.execute("PRAGMA table_info(news)").fetchall()
+    column_names = {column["name"] for column in columns}
+    if "image_path" not in column_names:
+        conn.execute("ALTER TABLE news ADD COLUMN image_path TEXT")
+        conn.commit()
+    conn.close()
+
+def is_allowed_image(filename):
+    if not filename or "." not in filename:
+        return False
+    ext = filename.rsplit(".", 1)[1].lower()
+    return ext in ALLOWED_IMAGE_EXTENSIONS
+
+def save_news_image(file_storage):
+    if not file_storage or not file_storage.filename:
+        return None
+
+    if not is_allowed_image(file_storage.filename):
+        return None
+
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    original_name = secure_filename(file_storage.filename)
+    extension = original_name.rsplit(".", 1)[1].lower()
+    unique_name = f"{uuid4().hex}.{extension}"
+    save_path = os.path.join(UPLOAD_FOLDER, unique_name)
+    file_storage.save(save_path)
+    return f"uploads/news/{unique_name}"
+
+ensure_news_image_column()
 
 # صفحة تسجيل الدخول
 @app.route('/login', methods=['GET', 'POST'])
@@ -53,12 +89,14 @@ def add_news():
         title = request.form['title']
         content = request.form['content']  # ← ده ناقص عندك
 
-        save_news_to_db(title, content)
+        image = request.files.get('image')
+        image_path = save_news_image(image)
+        save_news_to_db(title, content, image_path)
         return redirect(url_for('add_news'))
 
     return render_template('teachers.html', news_list=news_list)
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 @app.route('/news/<int:news_id>')
 def news_detail(news_id):
@@ -73,8 +111,12 @@ def news_detail(news_id):
         return "الخبر غير موجود", 404
 
     formatted_date = ""
-    if news_item["created_at"]:
-        dt = datetime.strptime(news_item["created_at"], "%Y-%m-%d %H:%M:%S")
+    created_at = news_item["created_at"]
+
+    if created_at:
+        dt = datetime.strptime(created_at, "%Y-%m-%d %H:%M:%S")
+        # تحويل الوقت لـ Cairo (UTC+2)
+        dt += timedelta(hours=2)
         formatted_date = dt.strftime("%d-%m-%Y | %I:%M %p")
 
     return render_template(
@@ -82,10 +124,12 @@ def news_detail(news_id):
         news=news_item,
         formatted_date=formatted_date
     )
-
-def save_news_to_db(title, content):
-    conn = get_db_connection()  # ← استخدام الدالة اللي بتحل مشكلة المسار
-    conn.execute("INSERT INTO news (title, content) VALUES (?, ?)", (title, content))
+def save_news_to_db(title, content, image_path=None):
+    conn = get_db_connection()
+    conn.execute(
+        "INSERT INTO news (title, content, image_path) VALUES (?, ?, ?)",
+        (title, content, image_path)
+    )
     conn.commit()
     conn.close()
 
@@ -123,7 +167,9 @@ def teachers():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        save_news_to_db(title, content)
+        image = request.files.get('image')
+        image_path = save_news_image(image)
+        save_news_to_db(title, content, image_path)
         return redirect(url_for('teachers'))  # بعد النشر يرجع للصفحة نفسها
 
 

@@ -5,19 +5,21 @@
 {% block content %}
 
 <div class="news-detail container">
-    
     <div class="news-detail-card">
         <h1 class="detail-title">{{ news['title'] }}</h1>
         <p class="news-date">📅 {{ formatted_date }}</p>
 
+        {% if news['image_path'] %}
+        <img src="{{ url_for('static', filename=news['image_path']) }}" alt="صورة الخبر" class="news-detail-image">
+        {% endif %}
 
         <div class="detail-content">
             {{ news['content'] }}
         </div>
 
         {% if session.get('teacher') %}
-            <form action="{{ url_for('delete_news', news_id=news['id']) }}" method="POST" 
-                style="margin-top:15px;" 
+            <form action="{{ url_for('delete_news', news_id=news['id']) }}" method="POST"
+                style="margin-top:15px;"
                 onsubmit="return confirm('هل أنت متأكد أنك تريد حذف هذا الخبر؟');">
                 <button type="submit" class="delete-btn">حذف الخبر</button>
             </form>
@@ -27,7 +29,6 @@
             ← رجوع إلى الأخبار
         </a>
     </div>
-
 </div>
 
 {% endblock %}

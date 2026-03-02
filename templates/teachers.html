@@ -6,18 +6,19 @@
 <div class="admin-page container">
     <h2>لوحة التحكم - إنشاء خبر جديد</h2>
 
-    <!-- نموذج إنشاء خبر جديد -->
-    <form action="{{ url_for('teachers') }}" method="POST">
+    <form action="{{ url_for('teachers') }}" method="POST" enctype="multipart/form-data">
         <label for="title">عنوان الخبر:</label>
         <input type="text" id="title" name="title" placeholder="اكتب عنوان الخبر هنا" required>
 
         <label for="content">محتوى الخبر:</label>
         <textarea id="content" name="content" placeholder="اكتب محتوى الخبر هنا" rows="5" required></textarea>
 
+        <label for="image">إضافة صورة:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
         <button type="submit" class="btn">نشر الخبر</button>
     </form>
 
-    <!-- قائمة آخر الأخبار المنشورة -->
     <h3>آخر الأخبار المنشورة:</h3>
     {% if news_list %}
     <ul>
@@ -29,7 +30,6 @@
         <p>لا توجد أخبار منشورة بعد.</p>
     {% endif %}
 
-    <!-- زر تسجيل الخروج -->
     <a href="{{ url_for('logout') }}" class="btn" style="margin-top:15px;">تسجيل الخروج</a>
 </div>
 {% endblock %}

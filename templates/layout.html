@@ -11,6 +11,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let slides = document.querySelectorAll(".slide");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.getElementById("main-menu");
+
+    if (slides.length > 0) {
+        let current = 0;
+
+        setInterval(() => {
+            slides[current].classList.remove("active");
+            current = (current + 1) % slides.length;
+            slides[current].classList.add("active");
+        }, 3000);
+    }
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", function() {
+            const isOpen = navMenu.classList.toggle("open");
+            menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+    }
+});
+</script>
 <body>
    <div class="top-bar">
         <div class="scroll-wrapper">
@@ -38,7 +62,8 @@
 
     <!-- ===== Navbar ===== -->
     <nav class="navbar">
-        <ul>
+        <button class="menu-toggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="main-menu">&#9776;</button>
+        <ul id="main-menu">
             <li><a href="{{ url_for('home') }}">الرئيسية</a></li>
             <li><a href="{{ url_for('about') }}">عن المدرسة</a></li>
             <li><a href="{{ url_for('news') }}">الأخبار</a></li>

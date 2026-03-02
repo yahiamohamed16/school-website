@@ -92,6 +92,16 @@ header.header {
     color: white;
 }
 
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #801500;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 10px 14px;
+}
+
 /* ===== Main Content ===== */
 main.content {
     padding: 60px 0;
@@ -823,12 +833,26 @@ footer.footer {
         text-align: center;
     }
 
+    .menu-toggle {
+        display: block;
+        margin: 6px 0 6px auto; /* فوق، يمين، تحت، يسار */
+    }
     .navbar ul {
+        display: none;
         flex-direction: column;
+        align-items: flex-end; /* بدل center → العناصر تتحرك لليمين */
+        padding-bottom: 10px;
+    }
+
+    .navbar ul.open {
+        display: flex;
     }
 
     .navbar ul li {
         margin: 5px 0;
+        width: 100%;
+        text-align: right; /* النصوص تتحرك لليمين */
+        padding-right: 15px; /* مسافة بسيطة عن الحافة اليمنى */
     }
 
     .hero-img {
@@ -854,4 +878,41 @@ footer.footer {
         height: 400px;
     }
 
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 70vh;      /* ارتفاع بنسبة من الشاشة */
+    object-fit: cover; /* يملأ المساحة بدون تشويه */
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    position: relative;
+}
+
+.news-thumb {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.news-detail-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 15px 0 20px;
 }

@@ -10,6 +10,10 @@
     <div class="news-grid">
         {% for item in news_list %}
         <div class="news-card">
+            {% if item['image_path'] %}
+            <img src="{{ url_for('static', filename=item['image_path']) }}" alt="صورة الخبر" class="news-thumb">
+            {% endif %}
+
             <div class="card-body">
                 <h2>
                     <a href="{{ url_for('news_detail', news_id=item['id']) }}">
