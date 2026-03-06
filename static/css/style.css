@@ -773,6 +773,21 @@ footer.footer {
 .hero .btn { margin-top: 10px; }
 .hero h1 { color: #c00; }  
 
+
+.home-logo-wrapper {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.home-logo {
+    width: min(100%, 560px);
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
 .latest-news { margin-bottom: 40px; }
 .news-cards { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
 .card { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex: 1 1 200px; text-align: center; }
@@ -857,6 +872,11 @@ footer.footer {
 
     .hero-img {
         height: 250px;  /* نقلل الطول عشان الموبايل */
+    }
+
+    .home-logo {
+        width: 100%;
+        max-height: 50vh;
     }
 
     .news-cards {

@@ -10,11 +10,9 @@
         <h1>مرحبًا بكم في مدرسة الشهيد حجازي نور الدين الثانوية</h1>
         <p>الموقع الرسمي للمدرسة، تابع آخر الأخبار، النتائج، والأنشطة المدرسية.</p>
         <a class="btn" href="{{ url_for('about') }}">عن المدرسة</a>
-        <div class="slider">
-        <img src="{{ url_for('static', filename='images/photo1.jpg') }}" class="slide active">
-        <img src="{{ url_for('static', filename='images/photo2.jfif') }}" class="slide">
-        <img src="{{ url_for('static', filename='images/photo3.jfif') }}" class="slide">
-</div>
+        <div class="home-logo-wrapper">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" class="home-logo" alt="شعار مدرسة الشهيد حجازي نور الدين">
+        </div>
 
     </section>
 
