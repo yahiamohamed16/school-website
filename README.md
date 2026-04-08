@@ -21,11 +21,11 @@ It focuses on organizing school data such as news, educational resources, and st
 - Dynamic content display
 
 ### 👨‍🏫 Teacher Dashboard
-- لكل معلم حساب خاص (Username & Password)
-- صلاحيات:
-  - إنشاء الأخبار
-  - حذف الأخبار
-
+- Each teacher has a dedicated account (username & password)
+- Permissions:
+  - Create news
+  - Delete news
+    
 ### 📚 Educational Resources
 - Organized resources for different grades
 - Easy access structure
@@ -43,8 +43,6 @@ It focuses on organizing school data such as news, educational resources, and st
 - Built as a structured multi-page system
 - Focus on **content organization**
 - Role-based interaction (Teacher access)
-- قابل للتطوير لإضافة Backend و Database
-
 ---
 
 ## 🛠️ Tech Stack
@@ -57,8 +55,6 @@ It focuses on organizing school data such as news, educational resources, and st
 - Authentication system (Login system)
 - Database integration
 - Admin dashboard
-- تحويل الموقع إلى نظام ديناميكي كامل
-
 ---
 
 ## 👨‍💻 Developer
