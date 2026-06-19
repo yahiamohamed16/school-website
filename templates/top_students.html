@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}الأوائل{% endblock %}
+
+{% block content %}
+<div class="top-students container">
+    <h1>طلاب الأوائل</h1>
+
+    <div class="top-grid">
+        {% for group in top_groups %}
+        <div class="top-card">
+            <h2>{{ group.title }}</h2>
+            <img src="{{ group.image }}" alt="{{ group.title }}" style="width:100%; border-radius:8px;">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.top-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.top-card {
+    text-align: center;
+}
+.top-card h2 {
+    color: #c00; /* اللون الأحمر للهوية البصرية */
+    margin-bottom: 10px;
+}
+</style>
+{% endblock %}

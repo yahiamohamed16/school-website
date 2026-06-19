@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}الدعم والتواصل - مدرسة الشهيد حجازي نور الدين{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="شعار المدرسة" class="school-logo">
+        <h1>مدرسة الشهيد حجازي نور الدين الثانوية</h1>
+    </header>
+
+    <div class="buttons">
+        <!-- تواصل المدرسة -->
+        <a href="https://www.facebook.com/profile.php?id=100086615016442&locale=ar_AR" target="_blank" class="btn-contact">
+            تواصل مع المدرسة
+        </a>
+
+        <!-- الدعم الفني -->
+        <a href="https://www.linkedin.com/in/yahia-mohamed-139a6b382/" target="_blank" class="btn-support">
+            الدعم الفني
+        </a>
+    </div>
+</section>
+{% endblock %}
