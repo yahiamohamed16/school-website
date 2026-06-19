@@ -15,17 +15,18 @@ It focuses on organizing school data such as news, educational resources, and st
 - Clean and simple UI
 
 ### 📰 News System
-- Teachers can:
-  - Add news
-  - Delete news
+Teachers can:
+- Add news
+- Delete news
 - Dynamic content display
 
 ### 👨‍🏫 Teacher Dashboard
-- Each teacher has a dedicated account (username & password)
-- Permissions:
-  - Create news
-  - Delete news
-    
+Each teacher has a dedicated account (username & password)
+
+Permissions:
+- Create news
+- Delete news
+
 ### 📚 Educational Resources
 - Organized resources for different grades
 - Easy access structure
@@ -40,28 +41,58 @@ It focuses on organizing school data such as news, educational resources, and st
 ---
 
 ## 🧠 Technical Highlights
-- Built as a structured multi-page system
-- Focus on **content organization**
-- Role-based interaction (Teacher access)
+- Built as a structured multi-page web system
+- Role-based access for teachers
+- Dynamic content handling using backend logic
+- Focus on scalability and maintainability
+
 ---
 
 ## 🛠️ Tech Stack
-- Frontend: HTML, CSS
-- Backend: Python (Flask)
-- Database: SQLite
+- Frontend: HTML, CSS  
+- Backend: Python (Flask)  
+- Database: SQLite  
+
 ---
 
 ## 🚀 Future Improvements
-- Authentication system (Login system)
-- Database integration
-- Admin dashboard
+- Authentication system (secure login system with roles)
+- Admin dashboard for full control
+- Student Results System:
+  - Students can enter their exam seat number
+  - System displays their result instantly
+  - Secure and structured results database
+- Improve UI/UX design
+- API integration for scalability
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Home Page
+<img width="882" height="709" alt="Home Page" src="https://github.com/user-attachments/assets/7f7dca26-746b-4465-9552-c50994507340" />
+
+---
+
+### 📰 News System Interface
+<img width="1032" height="653" alt="News System" src="https://github.com/user-attachments/assets/57f28eb3-2694-481e-b61e-991f020c11df" />
+
+---
+
+### 👨‍🏫 Teacher Dashboard
+<img width="566" height="711" alt="Teacher Dashboard" src="https://github.com/user-attachments/assets/392c5ba7-2610-43ce-a99c-e686a6b7be88" />
+
+---
+
+### 📚 Educational Resources Page
+<img width="889" height="710" alt="Educational Resources" src="https://github.com/user-attachments/assets/ada444b4-a166-4843-9d21-7626078679a5" />
 ---
 
 ## 👨‍💻 Developer
-Developed by: Yahia Mohamed  
-Role: Full Project Developer
+- Developed by: Yahia Mohamed  
+- Role: Full Project Developer  
 
 ---
 
 ## 📌 Notes
-This project represents a real-world implementation of a school content management concept, focusing on structure and usability rather than static display.
+This project represents a real-world implementation of a school content management system, focusing on structure, usability, and scalability rather than static display.
