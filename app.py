@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from uuid import uuid4
+import requests
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.secret_key = "secret_key_very_secure"
@@ -211,6 +213,61 @@ def contact():
 @app.route('/resources')
 def resources():
     return render_template('resources.html')
+
+# Ai
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    response = ""
+
+    if request.method == 'POST':
+        message = request.form['message']
+
+        response = get_ai_response(message)
+
+        # إذا كان الطلب AJAX (fetch) - إرجاع JSON
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"response": response})
+        
+        # إذا كان طلب POST عادي - إرجاع HTML كامل (للتوافق)
+        return render_template('chat.html', response=response)
+
+    return render_template('chat.html', response=response)
+
+load_dotenv()
+
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+def get_ai_response(message):
+
+    response = requests.post(
+        "https://openrouter.ai/api/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={
+            "model": "deepseek/deepseek-chat",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "أنت حجازي AI، المساعد الذكي لمدرسة الشهيد حجازي نور الدين الثانوية. مهمتك مساعدة الطلاب والزوار في الحصول على المعلومات المتعلقة بالمدرسة، مثل الأخبار، المناهج، المواد الدراسية، الأنشطة، المعلمين، الخدمات، والمعلومات العامة عن المدرسة. أجب باللغة العربية بأسلوب واضح ومختصر ومناسب للطلاب. إذا لم تكن تعرف معلومة معينة عن المدرسة، فلا تخترعها، بل أخبر المستخدم أنك لا تملك هذه المعلومة."
+                },
+                {
+                    "role": "user",
+                    "content": message
+                }
+            ]
+        }
+    )
+
+    data = response.json()
+
+    print(data)
+
+    if "choices" not in data:
+        return f"Error: {data}"
+
+    return data["choices"][0]["message"]["content"]
 
 
 # ===== تشغيل التطبيق =====

@@ -1,0 +1,248 @@
+#chat-toggle{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    width:65px;
+    height:65px;
+    border:none;
+    border-radius:50%;
+    background:#51190f;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    z-index:9999;
+    transition:transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* تأثير عند المرور بالفارة على الزرار */
+#chat-toggle:hover{
+    transform:scale(1.1);
+    background:#872619;
+    box-shadow:0 0 25px rgba(135, 51, 25, 0.4);
+}
+
+/* حلقة الأنميشن حول الزرار - ripple effect */
+#chat-toggle::before{
+    content:"";
+    position:absolute;
+    top:-8px;
+    left:-8px;
+    right:-8px;
+    bottom:-8px;
+    border-radius:50%;
+    border:3px solid rgba(81, 25, 15, 0.3);
+    animation:chatPulse 2s ease-out infinite;
+    pointer-events:none;
+}
+
+@keyframes chatPulse{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1.25);
+        opacity:0;
+    }
+}
+
+/* رسالة الترحيب - تظهر برا الأيقونة */
+#chat-welcome-tooltip{
+    position:fixed;
+    bottom:105px;
+    right:25px;
+    background:white;
+    color:#333;
+    padding:12px 18px;
+    border-radius:14px;
+    max-width:260px;
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+    z-index:9998;
+    font-size:14px;
+    line-height:1.5;
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+    pointer-events:none;
+}
+
+/* السهم الصغير تحت الرسالة */
+#chat-welcome-tooltip::after{
+    content:"";
+    position:absolute;
+    bottom:-8px;
+    right:25px;
+    border-width:8px;
+    border-style:solid;
+    border-color:white transparent transparent transparent;
+}
+
+/* حالة الإخفاء التدريجي للرسالة */
+#chat-welcome-tooltip.hidden{
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+}
+
+/* ========================================== */
+
+#chat-box{
+    position:fixed;
+    bottom:100px;
+    right:25px;
+
+    width:350px;
+    height:500px;
+
+    background:white;
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    z-index:9999;
+
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(20px) scale(0.95);
+    transition:opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    pointer-events:none;
+}
+
+#chat-box.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+    pointer-events:all;
+}
+
+#chat-box.closing{
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(20px) scale(0.95);
+    pointer-events:none;
+}
+
+.chat-header{
+    background:#51110f;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.chat-messages{
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+}
+
+#chat-form{
+    display:flex;
+    border-top:1px solid #eee;
+}
+
+#chat-form input{
+    flex:1;
+    border:none;
+    padding:15px;
+    outline:none;
+}
+
+#chat-form button{
+    border:none;
+    background:#872919;
+    color:white;
+    padding:15px;
+}
+
+/* رسائل الشات */
+.chat-msg {
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.chat-msg-user {
+    background: #872019;
+    color: white;
+    margin-left: auto;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-msg-bot {
+    background: #f0f0f0;
+    color: #333;
+    margin-right: auto;
+    border-bottom-right-radius: 4px;
+}
+
+#chat-loading span {
+    font-size: 13px;
+    color: #666;
+}
+
+
+/* منطقة الرسائل */
+.chat-messages {
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 15px;
+overflow-y: auto;
+}
+
+/* الرسالة الأساسية */
+.user-message,
+.ai-message {
+max-width: 80%;
+padding: 10px 14px;
+border-radius: 15px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+
+/* رسالة المستخدم */
+.user-message {
+align-self: flex-start;
+background-color: #ff0000;
+color: white;
+border-bottom-left-radius: 4px;
+}
+
+/* رسالة حجازي AI */
+.ai-message {
+align-self: flex-end;
+background-color: #eeeeee;
+color: #222;
+border-bottom-right-radius: 4px;
+}
+
+
+.ai-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.ai-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: translateY(2.5px);
+    object-fit: cover;
+}
+
+.ai-message-content {
+    padding: 10px 14px;
+    border-radius: 12px;
+}

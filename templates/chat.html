@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+
+<div id="chat-widget">
+
+    <button id="chat-toggle">
+        🤖
+    </button>
+
+    <div id="chat-box">
+
+        <div class="chat-header">
+            حجازي AI    
+        </div>
+
+        <div class="chat-messages">
+             أهلًا بك 👋 أنا حجازي AI، مساعدك الذكي في مدرسة الشهيد حجازي نور الدين الثانوية. كيف يمكنني مساعدتك？
+        </div>
+
+        <form id="chat-form">
+
+            <input
+                type="text"
+                placeholder="اكتب سؤالك..."
+            >
+
+            <button type="submit">
+                إرسال
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const toggleBtn = document.getElementById('chat-toggle');
+const chatBox = document.getElementById('chat-box');
+
+toggleBtn.addEventListener('click', function(e){
+
+    e.stopPropagation();
+
+    chatBox.classList.toggle('active');
+
+});
+
+document.addEventListener('click', function(e){
+
+    if(
+        !chatBox.contains(e.target)
+        &&
+        !toggleBtn.contains(e.target)
+    ){
+        chatBox.classList.remove('active');
+    }
+
+});
+
+</script>

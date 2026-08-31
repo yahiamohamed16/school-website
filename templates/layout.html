@@ -8,7 +8,9 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
 
 </head>
 <script>
@@ -74,6 +76,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
         </ul>
     </nav>
+    <div id="chat-widget">
+
+        <button id="chat-toggle">
+            <img src="{{ url_for('static', filename='images/robot.png') }}" 
+            class="ai-avatar" 
+            alt="حجازي AI">
+        </button>
+
+        <!-- رسالة الترحيب - تظهر برا الأيقونة -->
+        <div id="chat-welcome-tooltip">
+            السلام عليكم 👋 أنا حجازي AI، مساعدك الذكي
+        </div>
+
+        <div id="chat-box">
+
+            <div class="chat-header">
+                حجازي AI
+            </div>
+
+            <div class="chat-messages">
+                 السلام عليكم 👋 أنا حجازي AI، مساعدك الذكي في مدرسة الشهيد حجازي نور الدين الثانوية. كيف يمكنني مساعدتك اليوم؟
+            </div>
+
+
+            <form id="chat-form">
+
+                <input
+                    type="text"
+                    id="chat-input"
+                    placeholder="اكتب سؤالك..."
+                    required
+                >
+
+                <button type="submit">
+                    إرسال
+                </button>
+
+            </form>
+
+            <!-- مؤشر التحميل (spinner) للشات -->
+            <div id="chat-loading" style="display:none; text-align:center; padding:10px;">
+                <span>جاري الرد...</span>
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- ===== Main Content ===== -->
     <main class="content container">
@@ -85,6 +134,101 @@ document.addEventListener("DOMContentLoaded", function() {
     <footer class="footer">
         <p>© {{ year }} مدرسة الشهيد حجازي نور الدين الثانوية— جميع الحقوق محفوظة</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
+        const chatToggle = document.getElementById("chat-toggle");
+        const chatBox = document.getElementById("chat-box");
+        const chatForm = document.getElementById("chat-form");
+        const chatInput = document.getElementById("chat-input");
+        const chatMessages = document.querySelector(".chat-messages");
+        const chatLoading = document.getElementById("chat-loading");
+
+    // فتح وإغلاق الشات
+        if (chatToggle && chatBox) {
+            chatToggle.addEventListener("click", function () {
+                chatBox.classList.toggle("active");
+            });
+        }
+
+        // إرسال الرسالة
+        if (chatForm) {
+            chatForm.addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                const message = chatInput.value.trim();
+
+                if (!message) {
+                    return;
+                }
+
+                // عرض رسالة الطالب
+                const userMessage = document.createElement("div");
+                userMessage.className = "user-message";
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+
+                // تفريغ input
+                chatInput.value = "";
+
+                // إظهار التحميل
+                if (chatLoading) {
+                    chatLoading.style.display = "block";
+                }
+
+                try {
+
+                    const formData = new FormData();
+                    formData.append("message", message);
+
+                    const response = await fetch("/chat", {
+                        method: "POST",
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest"
+                        },
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    // إخفاء التحميل
+                    if (chatLoading) {
+                        chatLoading.style.display = "none";
+                    }
+
+                    // عرض رد حجازي AI
+                    const aiMessage = document.createElement("div");
+                    aiMessage.className = "ai-message";
+                    aiMessage.textContent = data.response;
+
+                    chatMessages.appendChild(aiMessage);
+
+                    // النزول لآخر رسالة
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                } catch (error) {
+
+                    console.error("Chat Error:", error);
+
+                    if (chatLoading) {
+                        chatLoading.style.display = "none";
+                    }
+
+                    const errorMessage = document.createElement("div");
+                    errorMessage.className = "ai-message";
+                    errorMessage.textContent = "حدث خطأ أثناء الاتصال بحجازي AI. حاول مرة أخرى.";
+
+                    chatMessages.appendChild(errorMessage);
+                }
+
+            });
+        }
+
+    });
+    </script>
+
+
+    
 </body>
 </html>
