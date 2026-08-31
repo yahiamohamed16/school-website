@@ -37,6 +37,13 @@ Permissions:
 
 ### 📞 Contact & Support
 - External links integration (Facebook / LinkedIn)
+## 🤖 AI Chatbot
+
+* 💬 Interactive chatbot for the school website
+* 🤖 AI-powered assistance for students and visitors
+* 📚 Helps users get information about the school
+* ⚡ Fast and easy interaction
+* 📱 Responsive chat interface
 
 ---
 
@@ -69,6 +76,14 @@ Permissions:
 
 ## 📸 Screenshots
 
+### 🤖 AI Chatbot
+
+An interactive AI chatbot that helps students and visitors get information and assistance directly through the school website.
+
+<img width="373" height="596" alt="image" src="https://github.com/user-attachments/assets/a4430b41-c541-4651-8ee6-aeb314296eef" />
+
+---
+
 ### 🏠 Home Page
 <img width="882" height="709" alt="Home Page" src="https://github.com/user-attachments/assets/7f7dca26-746b-4465-9552-c50994507340" />
 
@@ -83,6 +98,7 @@ Permissions:
 <img width="566" height="711" alt="Teacher Dashboard" src="https://github.com/user-attachments/assets/392c5ba7-2610-43ce-a99c-e686a6b7be88" />
 
 ---
+
 
 ### 📚 Educational Resources Page
 <img width="889" height="710" alt="Educational Resources" src="https://github.com/user-attachments/assets/ada444b4-a166-4843-9d21-7626078679a5" />
