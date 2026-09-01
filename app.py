@@ -5,6 +5,11 @@ from werkzeug.utils import secure_filename
 from uuid import uuid4
 import requests
 from dotenv import load_dotenv
+import os
+load_dotenv()
+
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+
 
 app = Flask(__name__)
 app.secret_key = "secret_key_very_secure"
@@ -233,9 +238,6 @@ def chat():
 
     return render_template('chat.html', response=response)
 
-load_dotenv()
-
-API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 def get_ai_response(message):
 
