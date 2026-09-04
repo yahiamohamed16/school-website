@@ -258,7 +258,8 @@ def get_ai_response(message):
                     "role": "user",
                     "content": message
                 }
-            ]
+            ],
+            "max_tokens": 100
         }
     )
 
